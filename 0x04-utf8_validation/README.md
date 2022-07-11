@@ -1,6 +1,6 @@
 <h2>Requirements</h2>
 <b>resources</b>
-<a href = 'https://alx-intranet.hbtn.io/rltoken/d--jVK8sBSlhkosu7pFzdw' >
+https://alx-intranet.hbtn.io/rltoken/d--jVK8sBSlhkosu7pFzdw
 
 <h2>General</h2>
 <li>Allowed editors: vi, vim, emacs

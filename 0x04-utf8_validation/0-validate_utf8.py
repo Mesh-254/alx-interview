@@ -1,27 +1,52 @@
 #!/usr/bin/python3
 """
-Validate UTF-8 encoded text.
-This is a simple example of how to use the utf8_validation module.
+Define validUTF8(data) function that validates whether a
+string of ints represents a valid UTF-8 encoding.
 """
+from itertools import takewhile
+
+
+def int_to_bits(nums):
+    """
+    Helper function
+    Convert ints to bits
+    """
+    for num in nums:
+        bits = []
+        mask = 1 << 8  # cause we have 8 bits per byte. adds up to (11111111)
+        while mask:
+            mask >>= 1
+            bits.append(bool(num & mask))
+        yield bits
 
 
 def validUTF8(data):
     """
-    Check if data os a valid UTF-8 encoding
+    Takes a list of ints and returns true if the list is
+    a valid UTF-8 encoding, else returns false
     Args:
-        data: A list of bytes.
-    Returns:
-        True if data is a valid UTF-8 encoding, False otherwise.
+        data : List of ints representing possible UTF-8 encoding
+    Return:
+        bool : True or False
     """
-    for byte in data:
-        if byte >> 7 == 0:
+    bits = int_to_bits(data)
+    for byte in bits:
+        # if single byte char, then valid. continue
+        if byte[0] == 0:
             continue
-        elif byte >> 5 == 0b110:
-            continue
-        elif byte >> 4 == 0b1110:
-            continue
-        elif byte >> 3 == 0b11110:
-            continue
-        else:
+
+        # if here, byte is multi-byte char
+        ones = sum(takewhile(bool, byte))
+        if ones <= 1:
             return False
+        if ones >= 4:  # UTF-8 can be 1 to 4 bytes long
+            return False
+
+        for _ in range(ones - 1):
+            try:
+                byte = next(bits)
+            except StopIteration:
+                return False
+            if byte[0:2] != [1, 0]:
+                return False
     return True

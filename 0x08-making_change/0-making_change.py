@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 
-from operator import countOf
-
 
 def making_change(coins, total):
     """ return fewest number of coins needed to meet total"""

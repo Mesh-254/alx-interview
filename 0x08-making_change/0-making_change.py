@@ -1,6 +1,4 @@
 #!/usr/bin/env python3
-
-
 def making_change(coins, total):
     """ return fewest number of coins needed to meet total"""
     if total <= 0:

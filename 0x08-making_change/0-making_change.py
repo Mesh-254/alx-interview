@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-def making_change(coins, total):
+"""making change function"""
+def making_change(coins:int, total):
     """ return fewest number of coins needed to meet total"""
     if total <= 0:
         return 0
